@@ -138,6 +138,18 @@ export default function App() {
     localStorage.setItem('aiRoiHourlyRate', hourlyRate.toString());
   }, [hourlyRate]);
 
+  const resetAllData = () => {
+    if (confirm('Are you sure you want to reset all data? This cannot be undone.')) {
+      // Clear all localStorage items
+      localStorage.removeItem('aiRoiTasks');
+      localStorage.removeItem('aiRoiHourlyRate');
+      
+      // Reset state to empty values
+      setTasks([]);
+      setHourlyRate(125);
+    }
+  };
+
   const addOrUpdateTask = () => {
     if (!newTask.name || !newTask.description) return;
 
@@ -603,7 +615,7 @@ This report was generated using the AI ROI Coach.
             
             <div className="mt-6 text-xs text-zinc-500 flex items-center gap-x-5">
               <div>All data is saved locally in your browser.</div>
-              <button onClick={() => localStorage.clear()} className="underline hover:text-zinc-300">Reset all data</button>
+              <button onClick={resetAllData} className="underline hover:text-zinc-300">Reset all data</button>
             </div>
           </div>
         )}
